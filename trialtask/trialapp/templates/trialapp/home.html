@@ -1,0 +1,21 @@
+{% extends "trialapp/base.html" %}
+{%block main%}
+<h1>Data Scrapper from Coursera</h1>
+
+<p><h3>Please select one of categories form a drop-down list.</h3></p>
+
+<form action="{% url 'trialapp:scrape' %}" method="POST">
+    {% csrf_token %}
+    <label for="cats"><h4>Choose a category to scrape data from</h4></label>
+    <select name="cats" id="cats">
+        {% for cat in categories %}
+        <option value="{{cat}}" name="{{cat}}">{{cat | title}}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+    <input type="submit" value="Submit">
+</form>
+
+<p>Click the "Submit" button to scrape data.
+    Please wait until you will be redirected to the corresponding page.</p>
+{%endblock%}

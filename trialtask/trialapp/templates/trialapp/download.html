@@ -1,0 +1,30 @@
+{% extends "trialapp/base.html" %}
+{%block main%}
+
+<h1>Download Scrapped File</h1>
+Availables files list:
+{% if files %}
+<ol>
+    {% for file in files %}
+    <li>{{file | title}}</li>
+    {% endfor %}
+</ol>
+{% else %}
+<p>No scrapped files are available. Please go 'home' and scrape data from given categories. </p>
+{% endif %}
+<p>Choose one of the files to download</p>
+
+<form action="{% url 'trialapp:get_file' %}" method="POST">
+    {% csrf_token %}
+    <select name="filename" id="file">
+        {% for file in files %}
+        <option value="{{file}}" name="{{file}}">{{file | title}}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+    <input type="submit" value="Submit">
+</form>
+
+<p>Click the "Submit" button download selected file.</p>
+
+{%endblock%}
